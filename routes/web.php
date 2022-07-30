@@ -11,6 +11,33 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/products', 'ProductsListController@showList') ->name('products');  
+
+Route::get('/product.regist', 'ProductRegistController@regist') ->name('regist');
+
+Route::get('/product.detail/{id}', 'ProductDetailController@detail') ->name('detail');
+
+Route::get('/product.edit/{id}', 'ProductEditController@edit') ->name('edit');
+
+Route::post('/product.regist', 'ProductRegistController@store') ->name('store');
+
+Route::patch('/product.edit/{id}', 'ProductEditController@update') ->name('update');
+
+Route::post('/products.delete/{id}', 'ProductsListController@delete') ->name('delete');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
