@@ -125,7 +125,7 @@
                 </div>
                 <div class="submit">
                     <input type="submit" name="submit" value="更新">
-                    <button type="button" onclick="history.back()">戻る</button>
+                    <button type="button" onclick="location.href='{{ route('detail',['id' => $edit -> id]) }}'">戻る</button>
                 </div>
             </div>
         </form>

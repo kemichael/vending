@@ -132,7 +132,7 @@
                 </div>
                 <div class="submit">
                     <input type="submit" name="submit" value="登録">
-                    <button type="button" onclick="history.back()">戻る</button>
+                    <button type="button" onclick="location.href='{{ route('products') }}'">戻る</button>
                 </div>
         </form>
             </div>

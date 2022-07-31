@@ -96,7 +96,7 @@
                         </select>
         
                         <input type="submit" value="検索">
-                        <a href="{{ route('regist')}}">新規登録</a>
+                        <button type="button" onclick="location.href='{{ route('regist') }}'">新規登録</button>
                         
                     </form>
                 </div>
@@ -119,12 +119,12 @@
                         @foreach($products as $product)
                         <tr>
                             <td>{{ $product -> id }}</td>
-                            <td><img src="{{ Storage::url($product -> img_path) }}" ></td>
+                            <td><img src="{{ Storage::url($product -> img_path) }}" width="1%"></td>
                             <td>{{ $product -> product_name }}</td>
                             <td>{{ $product -> price }}</td>
                             <td>{{ $product -> stock }}</td>
                             <td>{{ $product -> company_name }}</td>
-                            <td><a href="{{ route('detail', ['id'=> $product -> id])}}">詳細表示</a></td>
+                            <td><button type="button" onclick="location.href='{{ route('detail', ['id'=> $product -> id]) }}'">詳細表示</button></td>
                             <form action="{{ route('delete', ['id' => $product -> id])}}" method="POST">
                                 @csrf
                             <td><input type="submit" class="del-btn" value="削除"></td>

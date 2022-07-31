@@ -110,8 +110,8 @@
                     </table>
                 </div>
                 <div>
-                     <button type="button" onclick="history.back()">戻る</button>
-                     <button type="button" onclick="location.href='{{route('edit',['id' => $detail -> id])}}'">編集</button>
+                     <button type="button" onclick="location.href='{{ route('products') }}'">戻る</button>
+                     <button type="button" onclick="location.href='{{ route('edit',['id' => $detail -> id]) }}'">編集</button>
                 </div>
 
                 
