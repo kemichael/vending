@@ -33,11 +33,3 @@ Route::post('/product.regist', 'ProductRegistController@store') ->name('store');
 Route::patch('/product.edit/{id}', 'ProductEditController@update') ->name('update');
 
 Route::post('/products.delete/{id}', 'ProductsListController@delete') ->name('delete');
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

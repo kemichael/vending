@@ -32,7 +32,7 @@ class ProductsListController extends Controller
             $query -> where('product_name', 'LIKE', "%{$keyword}%");
         }
 
-        if(!empty($company)){
+        if(!empty($company)) {
             $query -> where('company_name', 'LIKE', "$company");
         }
       
@@ -40,7 +40,6 @@ class ProductsListController extends Controller
 
         $companies_list = Company::all();
         
-
         return view('products', compact('products', 'keyword', 'company', 'companies_list' ));
     }
 

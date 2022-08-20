@@ -19,7 +19,7 @@
                     @endforeach
                 </select>
 
-                <input type="submit" value="検索">
+                <input type="submit" id="serch-btn" value="検索">
                 <button type="button" onclick="location.href='{{ route('regist') }}'">新規登録</button>
                 
             </form>
@@ -51,7 +51,7 @@
                     <td><button type="button" onclick="location.href='{{ route('detail', ['id'=> $product -> id]) }}'">詳細表示</button></td>
                     <form action="{{ route('delete', ['id' => $product -> id])}}" method="POST">
                         @csrf
-                    <td><input type="submit" class="del-btn" value="削除"></td>
+                    <td><input type="submit" id="del-id" class="del-btn" value="削除"></td>
                     </form>
                 </tr>
                 @endforeach

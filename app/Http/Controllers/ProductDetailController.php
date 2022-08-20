@@ -11,10 +11,12 @@ use App\Models\Company;
 
 class ProductDetailController extends Controller
 {
+    //表示用DB処理
     public function detail($id) {
+
         $detail = Product::Join('companies', 'products.company_id', '=' , 'companies.id')
-        ->select('products.*', 'companies.company_name')
-        ->find($id);
+        -> select('products.*', 'companies.company_name')
+        -> find($id);
 
         return view('product_detail', compact('detail'));
     }

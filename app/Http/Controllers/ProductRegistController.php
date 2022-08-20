@@ -26,8 +26,10 @@ class ProductRegistController extends Controller
             $model = new Product();
 
             $model -> storeProduct($request);
+
             DB::commit();
-        } catch (\Exceptioin $e) {
+
+        } catch (\Exceptioin $e)  {
             DB::rollback();
             return back();
         }
@@ -45,10 +47,10 @@ class ProductRegistController extends Controller
                     'img_path' => $path,
                 ]);
             }
-
-        return redirect(route('regist'));
-    }
- }
+        }
+            //登録後、一覧画面へリダイレクト
+            return redirect(route('products'));
+     }
 
     
 }

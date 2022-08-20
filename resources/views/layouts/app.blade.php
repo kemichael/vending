@@ -65,6 +65,9 @@
                 margin-bottom: 30px;
             }
         </style>
+        <!-- js -->
+        <style>"{{ asset('js/products.js') }}"</style> 
+        
     </head>
     <body>
         <div class="flex-center position-ref full-height">

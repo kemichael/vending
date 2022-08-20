@@ -16,7 +16,7 @@
                         <td>商品ID : {{ $edit -> id}}</td>
                     </tr>
                     <tr>
-                        <td> 商品名</td>
+                        <td>商品名</td>
                         <td><input type="text" name="name" id="name" placeholder="{{ $edit -> product_name}}"></td>
                     </tr>
                     <tr>
@@ -24,9 +24,9 @@
                         <td>  
                             <select name="maker"  id="maker" data-toggle="select">
                             <option value="{{ $edit -> company_id}}" >{{ $edit -> company_name}}</optioin>
-                        @foreach($companies as $company)
+                            @foreach($companies as $company)
                             <option value="{{ $edit -> id}}" >{{ $company -> company_name}}</option>
-                        @endforeach
+                            @endforeach
                             </select>
                         </td>
                     </tr>
