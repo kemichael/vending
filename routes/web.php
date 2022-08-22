@@ -24,7 +24,7 @@ Route::get('/products', 'ProductsListController@showList') ->name('products');
 
 Route::get('/product.regist', 'ProductRegistController@regist') ->name('regist');
 
-Route::get('/product.detail/{id}', 'ProductDetailController@detail') ->name('detail');
+Route::get('/product.detail/{id}', 'ProductslistController@detail') ->name('detail');
 
 Route::get('/product.edit/{id}', 'ProductEditController@edit') ->name('edit');
 
