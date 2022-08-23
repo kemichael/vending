@@ -26,10 +26,10 @@ Route::get('/product.regist', 'ProductRegistController@regist') ->name('regist')
 
 Route::get('/product.detail/{id}', 'ProductslistController@detail') ->name('detail');
 
-Route::get('/product.edit/{id}', 'ProductEditController@edit') ->name('edit');
+Route::get('/product.edit/{id}', 'ProductsListController@edit') ->name('edit');
 
 Route::post('/product.regist', 'ProductRegistController@store') ->name('store');
 
-Route::patch('/product.edit/{id}', 'ProductEditController@update') ->name('update');
+Route::patch('/product.edit/{id}', 'ProductsListController@update') ->name('update');
 
 Route::post('/products.delete/{id}', 'ProductsListController@delete') ->name('delete');
