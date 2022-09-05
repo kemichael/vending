@@ -12,12 +12,14 @@ use App\Models\Company;
 
 class ProductRegistController extends Controller
 {
+    // 登録画面表示
     public function regist() {
         $companies = Company::all();
         
         return view('product_regist', compact('companies'));
     }
 
+    // 登録処理
     public function store(Request $request) {
         
         DB::beginTransaction();
@@ -25,7 +27,7 @@ class ProductRegistController extends Controller
         try {
             $model = new Product();
 
-            $model -> storeProduct($request);
+            $model->storeProduct($request);
 
             DB::commit();
 

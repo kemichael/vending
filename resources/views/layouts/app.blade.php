@@ -65,6 +65,10 @@
                 margin-bottom: 30px;
             }
         </style>
+
+        <!-- css -->
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+
         <!-- js -->
         <style>"{{ asset('js/products.js') }}"</style> 
         
