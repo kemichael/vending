@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illumiinate\Database\Eloquent\Model;
-use Illuminaate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Company;
@@ -30,13 +30,13 @@ class ProductsListController extends Controller
         });
 
         // 商品名検索
-        if(!empty($keyword)) {
+        if(!is_null($keyword)) {
             $query->where('product_name', 'LIKE', "%{$keyword}%");
         }
 
         // メーカー名検索
-        if(!empty($company)) {
-            $query-> where('company_name', 'LIKE', "$company");
+        if(!is_null($company)) {
+            $query-> where('company_name', '=', "$company");
         }
 
         //価格検索上限
@@ -82,9 +82,17 @@ class ProductsListController extends Controller
 
     //削除用
     public function delete($id) {
-        $product = Product::find($id);
-        $product->delete();
 
+        DB::beginTransaction();
+
+        try {
+            $product = Product::find($id);
+            $product->delete(); 
+            DB::commit();
+        }catch (\Exceptioin $e)  {
+            DB::rollback();
+            return back();            
+        }
         return redirect('products');
     }
 
@@ -92,37 +100,82 @@ class ProductsListController extends Controller
     //詳細表示用DB処理
     public function detail($id) {
 
-        $detail = Product::Join('companies', 'products.company_id', '=' , 'companies.id')
-        ->select('products.*', 'companies.company_name')
-        ->find($id);
-
+        $detail = Product::find($id);
+        $detail->join('companies', 'products.company_id', '=' , 'companies.id')
+        ->select('products.*', 'companies.company_name');
+        
         return view('product_detail', compact('detail'));
     }
 
 
-        //編集画面表示用DB処理
-        public function edit($id) {
-            $edit = Product::Join('companies', 'products.company_id', '=' , 'companies.id')
-            ->select('products.*', 'companies.company_name')
-            ->find($id);
+    //編集画面表示用DB処理
+    public function edit($id) {
+        $edit = Product::find($id);
+        $edit->join('companies', 'products.company_id', '=' , 'companies.id')
+        ->select('products.*', 'companies.company_name');
+
+        $companies =  Company::all();
+
+        return view('product_edit', compact('edit', 'companies'));
+    }   
+
+    //編集内容反映用処理
+    public function update(Request $request, $id) {
+
+        $product = Product::find($id);
+
+        $product->product_name = $request->input('name');
+        $product->company_id = $request->input('maker');
+        $product->price = $request->input('price');
+        $product->stock = $request->input('stock');
+        $product->comment = $request->input('comment');
+
+        $product->save();
+        return redirect(route('products'));
+    }
+
+
+    //新規登録画面表示
+    public function regist() {
+        $companies = Company::all();
     
-            $companies =  Company::all();
-    
-            return view('product_edit', compact('edit', 'companies'));
-        }   
-    
-        //編集内容反映用処理
-        public function update(Request $request, $id) {
-    
-            $product = Product::find($id);
-    
-            $product->product_name = $request->input('name');
-            $product->company_id = $request->input('maker');
-            $product->price = $request->input('price');
-            $product->stock = $request->input('stock');
-            $product->comment = $request->input('comment');
-    
-            $product->save();
-            return redirect(route('products'));
+        return view('product_regist', compact('companies'));
+    }
+
+    //新規登録処理
+    public function store(Request $request) {
+        
+        
+
+        try {
+            DB::beginTransaction();
+
+            $model = new Product();
+
+            $model->storeProduct($request);
+
+            DB::commit();
+
+        } catch (\Exceptioin $e)  {
+            DB::rollback();
+            return back();
         }
+
+        $img = $request->file('img_path');
+
+        // 画像情報がセットされていれば、保存処理を実行
+        if (isset($img)) {
+            // storage > public > img配下に画像が保存される
+            $path = $img->store('img','public');
+            // store処理が実行できたらDBに保存処理を実行
+            if ($path) {
+                // DBに登録する処理
+                Product::create([
+                    'img_path' => $path,
+                ]);
+            }
+        }
+            //登録後、一覧画面へリダイレクト
+            return redirect(route('products'));
+     }
 }

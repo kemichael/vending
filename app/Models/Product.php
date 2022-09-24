@@ -11,11 +11,14 @@ class Product extends Model
  
    use Sortable;
 
-   protected $fillable = ['img_path'];
-
-   public function company(){
-      return $this->belongsTo(Company::class);
- }
+   protected $fillable = [
+      'id', 
+      'company_id',
+      'product_name',
+      'price',
+      'stock',
+      'comment',
+      'img_path'];
 
  //登録処理
  public function storeProduct($data) {
